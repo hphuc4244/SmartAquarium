@@ -257,13 +257,13 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                <p>Bounce Rate</p>
+                <h3 id="doam">53<sup style="font-size: 20px">%</sup></h3>
+                <p>Độ ẩm</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -271,14 +271,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3 id="nhietdo">44</h3>
 
-                <p>User Registrations</p>
+                <p>Nhiệt độ</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -399,9 +399,9 @@
       // connect the client
       client.connect({onSuccess:onConnect});
       function onConnect() {
-  // Once a connection has been made, make a subscription and send a message.
         console.log("onConnect");
         client.subscribe("ToNguyenHoangPhuc_Led_out");
+        client.subscribe("ToNguyenHoangPhuc_dht");
 
       }
       function onConnectionLost(responseObject) {
@@ -410,16 +410,26 @@
         }
       }
       function onMessageArrived(message) {
-        console.log("onMessageArrived:"+message.payloadString);
-        updateData(message.payloadString)
-        location.reload();
+        if(message.destinationName =="ToNguyenHoangPhuc_Led_out")
+        {
+          updateData(message.payloadString)
+          location.reload();
+        }
+        else if(message.destinationName =="ToNguyenHoangPhuc_dht")
+        {
+          console.log("onMessageArrived:"+message.payloadString);
+          const obj = JSON.parse(message.payloadString); 
+          console.log(obj.temp_value);
+          document.getElementById("nhietdo").innerHTML =  obj.nhiet_do;
+          document.getElementById("doam").innerHTML =obj.do_am;
+        }
+ 
       }
       $('#BatDen').click(function(e) {  
         if(luuTTLed == "0")
         {
           const message = new Paho.MQTT.Message("1");
           message.destinationName = "ToNguyenHoangPhuc_Led_in";
-          console.log("Gui")
           client.send(message);
         }
         else
