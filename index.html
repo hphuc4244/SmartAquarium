@@ -29,7 +29,6 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
-  
    <!-- thoi tiet -->
   <link rel="stylesheet" href="dist/css/Thoitiet.css">
   <!-- font chữ sử dụng hiển thị thời tiết -->
@@ -259,8 +258,9 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner" id="BatDen">
-                <h3>Bật/tắt đèn</h3>
-                <img class="ion" id="myImg" src="./dist/img/switch-off.png" style="width: 25%;">
+                <h3>Đèn</h3>
+                <!-- <img class="ion" id="myImg" src="./dist/img/switch-off.png" style="width: 25%;"> -->
+                <img class="img_den" src="./dist/img/den_off.png" style="width: 25%;">
               </div>
             </div>
           </div>
@@ -317,7 +317,7 @@
       <!-- Thời tiết -->
 
       <div id="thoitiet" class="content" style='background-image: url("dist/img/Thoitiet/nang.jpg");'>
-        <div id="title_thoitiet" style="padding-left: 5%;width: 100%; background-color: rgba(255, 255, 255, 0.23);border-top-left-radius: 20px; border-top-right-radius: 20px;">
+        <div id="title_thoitiet" style="padding-left: 5%;width: 100%; background-color: rgba(255, 255, 255, 0.23);border-top-left-radius: 13px; border-top-right-radius: 13px;">
           <h5 id="ngayhientai">Thứ Tư, 28.09.2023 </h5>
         </div>
         <div id="content_thoitiet" class="container-fluid">
@@ -445,7 +445,7 @@
         if(message.destinationName =="ToNguyenHoangPhuc_Led_out")
         {
           updateData(message.payloadString)
-          location.reload();
+          // location.reload();
         }
         else if(message.destinationName =="ToNguyenHoangPhuc_dht")
         {
@@ -473,20 +473,33 @@
         }
 
       });
-      const dbref= ref(db);
-        get(child(dbref,"TrangThaiLed")).then((snapshot)=>{
-          luuTTLed=snapshot.val()
-            if(luuTTLed == "0")
-            {
-              $('#myImg').attr('src','./dist/img/switch-off.png');
+      // const dbref= ref(db);
+      // get(child(dbref,"TrangThaiLed")).then((snapshot)=>{
+      //     luuTTLed=snapshot.val()
+      //       if(luuTTLed == "0")
+      //       {
+      //         $('#myImg').attr('src','./dist/img/switch-off.png');
       
-            }
-            else
-            {
-              $('#myImg').attr('src','./dist/img/switch-on.png');
-            }
+      //       }
+      //       else
+      //       {
+      //         $('#myImg').attr('src','./dist/img/switch-on.png');
+      //       }
              
-        });
+      //   });
+
+      var den_off = "./dist/img/den_off.png";
+      var den_on = "./dist/img/den_on.png";
+      $('.img_den').click(function(){
+        var imgsr = $('.img_den').attr('src');
+        if(imgsr === den_off){
+            $('.img_den').attr('src', den_on);
+        }
+        else{
+            $('.img_den').attr('src', den_off);
+        }
+    });
+
       function updateData(data){
         update(ref(db),{
           TrangThaiLed:data
