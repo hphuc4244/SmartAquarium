@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hệ thống điều khiển thiết bị</title>
 
+  <!-- icon tab -->
+  <link rel="icon" type="image/x-icon" href="/IOT/dist/img/icon_newtab.png">
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -25,13 +28,24 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+
+  <!-- thoi tiet -->
+  <link rel="stylesheet" href="dist/css/Thoitiet.css">
+  <!-- font chữ sử dụng hiển thị thời tiết -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Lobster&family=Patua+One&family=Playball&family=Sriracha&display=swap" rel="stylesheet">
+
+
+
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="dist/img/logo.jpg" height="500" width="500" style="border-radius: 50%;">
   </div>
 
   <!-- Navbar -->
@@ -42,10 +56,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <!-- <a class="nav-link">Home</a> -->
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <!-- <a href="#" class="nav-link">Contact</a>  -->
       </li>
     </ul>
 
@@ -176,7 +190,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="dist/img/logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Auto</span>
     </a>
 
@@ -202,7 +216,8 @@
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <!-- <a href="pages/widgets.html" class="nav-link"> -->
+            <a class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Điều khiển
@@ -228,8 +243,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
+              <!-- <li class="breadcrumb-item active">Dashboard v1</li> -->
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -308,15 +323,33 @@
   
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
+
+      <!-- Thời tiết -->
+
+      <div id="thoitiet" class="content" style='background-image: url("dist/img/Thoitiet/nang.jpg");'>
+        <div id="title_thoitiet" style="padding-left: 5%;width: 100%; background-color: rgba(255, 255, 255, 0.23);border-top-left-radius: 20px; border-top-right-radius: 20px;">
+          <h5 id="ngayhientai">Thứ Tư, 28.09.2023 </h5>
+        </div>
+        <div id="content_thoitiet" class="container-fluid">
+          <span id="giatrinhietdo">24°C</span>
+          <span id="vitri">Phường 2, Vĩnh Long</span>
+          <p id="trangthaithoitiet">Mưa giông</p> 
+          <img id="iconthoitiet" height="auto" width="10%" src="dist/img/Thoitiet/iconthoitiet_nang.png"/>
+          <p id="nhietdongay">Độ ẩm 20%, Nhiệt độ thấp nhất 27°</p>
+        </div>
+      </div>  
+       <!-- test -->
+         
+      <!-- thời tiết -->
     </section>
+    </div>
     <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
+    <strong>Copyright <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    Hệ thống cá cảnh Hoàng Phúc.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
+      <b>Version</b> 1.0.1
     </div>
   </footer>
 
@@ -327,6 +360,8 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -362,5 +397,7 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+<!-- thoi tiet -->
+<script src="dist/js/thoitiet.js"></script>
 </body>
 </html>
