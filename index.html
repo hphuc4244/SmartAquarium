@@ -425,14 +425,17 @@
   $(document).ready(function() {
     // Create a client instance
      var luuTTLed;
-      const client = new Paho.MQTT.Client("broker.emqx.io", Number(8084), "clientId_abcjdgn");
+      const client = new Paho.MQTT.Client("broker.hivemq.com", Number(8884), "clientId_abcjdgn");
 
       // set callback handlers
       client.onConnectionLost = onConnectionLost;
       client.onMessageArrived = onMessageArrived;
 
       // connect the client
-      client.connect({onSuccess:onConnect});
+      client.connect({
+        onSuccess:onConnect,	
+     
+        useSSL: true});
       function onConnect() {
         console.log("onConnect");
         client.subscribe("ToNguyenHoangPhuc_Led_out");
