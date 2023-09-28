@@ -17,8 +17,6 @@ function Get_Thoitiet() {
     // console.log(s);
     // document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
     document.getElementById('ngayhientai').innerHTML = h+":"+m+":"+s +" - " + day + ", " + date +"."+month+"."+year
-
-
     const xhttpr = new XMLHttpRequest();
     xhttpr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Vinh Long&appid=5a383cdee3d0e7e579889741686fae8f&&units=metric', true);
 
@@ -36,22 +34,22 @@ function Get_Thoitiet() {
             document.getElementById('nhietdongay').textContent = "Độ ẩm " + response.main.humidity + "%";
 
             switch (response.weather[0].main){
-                    
+                  
                 case "Clear": 
-                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_nang.png";
+                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_nang.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
                     break;
                 case "Clouds": 
-                    document.getElementById("iconthoitiet").src = "./img/Thoitiet/iconthoitiet_may.png";
+                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_may.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/may.jpg')")
                     break;
                 case "Rain": 
-                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_mua.png";
+                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_mua.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/mua.jpg')")
                     break;
                 // thay doi
                 default: 
-                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_nang.png";
+                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_nang.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
                     break; 
             }
