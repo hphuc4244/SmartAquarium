@@ -254,14 +254,17 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
+          <div  class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner" id="BatDen">
-                <h3>Đèn</h3>
-                <!-- <img class="ion" id="myImg" src="./dist/img/switch-off.png" style="width: 25%;"> -->
-                <p style="float: right; position: fixed;right: 0;bottom: 0;"><img class="img_den" src="./dist/img/den_off.png" style="width: 25%;"></p>
+            <div  id="bat/tatden"   class="small-box bg-info">
+              <div class="inner" >
+                <h3 style="-webkit-user-select: none;user-select: none;">Đèn <img class="img_den" src="dist/img/den_off.png" width="10%"/> </h3>
+                <p  style="color: #17a2b8; -webkit-user-select: none;user-select: none;"> dsd  </p>
               </div>
+              <div  class="icon">
+                <i  style="zoom:0.8;" class="ion-ios-lightbulb"></i>
+              </div>
+              <a href="#" class="small-box-footer"> </i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -275,7 +278,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"></a>
             </div>
           </div>
           <!-- ./col -->
@@ -289,7 +292,7 @@
               <div class="icon">
                 <i class="fa fa-thermometer-half"></i>
               </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -303,7 +306,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"></a>
             </div>
           </div>
           <!-- ./col -->
@@ -492,27 +495,48 @@
 
       var den_off = "./dist/img/den_off.png";
       var den_on = "./dist/img/den_on.png";
-      $('.img_den').click(function(){
+
+      var clicked = document.getElementById("bat/tatden")
+      clicked.onclick = function(){
+        console.log("Clicked");
         var imgsr = $('.img_den').attr('src');
         if(imgsr === den_off){
-
-          const message = new Paho.MQTT.Message("1");
-          message.destinationName = "ToNguyenHoangPhuc_Led_in";
-          client.send(message);
-          console.log("Bat den");
-
-          $('.img_den').attr('src', den_on);
+            $('.img_den').attr('src', den_on);
+            const message = new Paho.MQTT.Message("1");
+            message.destinationName = "ToNguyenHoangPhuc_Led_in";
+            client.send(message);
+            console.log("Bat den");
         }
         else{
-
-          const message = new Paho.MQTT.Message("0");
-          message.destinationName = "ToNguyenHoangPhuc_Led_in";
-          console.log("Gui, tat den")
-          client.send(message);
-
-          $('.img_den').attr('src', den_off);
+            $('.img_den').attr('src', den_off);
+            const message = new Paho.MQTT.Message("0");
+            message.destinationName = "ToNguyenHoangPhuc_Led_in";
+            console.log("Gui, tat den")
+            client.send(message);
         }
-    });
+    };
+      //
+    //   $('.img_den').click(function(){
+    //     var imgsr = $('.img_den').attr('src');
+    //     if(imgsr === den_off){
+
+    //       const message = new Paho.MQTT.Message("1");
+    //       message.destinationName = "ToNguyenHoangPhuc_Led_in";
+    //       client.send(message);
+    //       console.log("Bat den");
+
+    //       $('.img_den').attr('src', den_on);
+    //     }
+    //     else{
+
+    //       const message = new Paho.MQTT.Message("0");
+    //       message.destinationName = "ToNguyenHoangPhuc_Led_in";
+    //       console.log("Gui, tat den")
+    //       client.send(message);
+
+    //       $('.img_den').attr('src', den_off);
+    //     }
+    // });
 
       function updateData(data){
         update(ref(db),{
