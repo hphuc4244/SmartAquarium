@@ -14,9 +14,9 @@ function Get_Thoitiet() {
     if (i < 10) i = "0" + i;  
         return i;
     }
-
+    // console.log(s);
     // document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
-    document.getElementById('ngayhientai').innerHTML = day + ", " + date +"."+month+"."+year;
+    document.getElementById('ngayhientai').innerHTML = h+":"+m+":"+s +" - " + day + ", " + date +"."+month+"."+year
 
 
     const xhttpr = new XMLHttpRequest();
@@ -27,6 +27,8 @@ function Get_Thoitiet() {
     xhttpr.onload = ()=> {
         if (xhttpr.status === 200) {
             const response = JSON.parse(xhttpr.response);
+            
+            // console.log(response);
 
             document.getElementById('giatrinhietdo').textContent = Math.round(response.main.feels_like*10)/10+"°C";
             document.getElementById('trangthaithoitiet').textContent = response.weather[0].description;
@@ -36,29 +38,29 @@ function Get_Thoitiet() {
             switch (response.weather[0].main){
 
                 case "Clear": 
-                    document.getElementById("iconthoitiet").src = "/IOT/dist/img/Thoitiet/iconthoitiet_nang.png";
+                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_nang.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
                     break;
                 case "Clouds": 
-                    document.getElementById("iconthoitiet").src = "/IOT/dist/img/Thoitiet/iconthoitiet_may.png";
+                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_may.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/may.jpg')")
                     break;
                 case "Rain": 
-                    document.getElementById("iconthoitiet").src = "/IOT/dist/img/Thoitiet/iconthoitiet_mua.png";
+                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_mua.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/mua.jpg')")
                     break;
                 // thay doi
                 default: 
-                    document.getElementById("iconthoitiet").src = "/IOTdist/img/Thoitiet/iconthoitiet_nang.png";
+                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_nang.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
                     break; 
             }
 
-            console.log(response.weather[0].main)
+            // console.log(response.weather[0].main)
         } else {
             console.log("LOAD WEATHERS ERRO");
         }
     };
 
-  setTimeout(startTime, 1000);
+  setTimeout(Get_Thoitiet, 1000);
 }

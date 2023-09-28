@@ -6,7 +6,7 @@
   <title>Hệ thống điều khiển thiết bị</title>
 
    <!-- icon tab -->
-   <link rel="icon" type="image/x-icon" href="/IOT/dist/img/icon_newtab.png">
+   <!-- <link rel="icon" type="image/x-icon" href="/IOT/dist/img/icon_newtab.png"> -->
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -260,7 +260,7 @@
               <div class="inner" id="BatDen">
                 <h3>Đèn</h3>
                 <!-- <img class="ion" id="myImg" src="./dist/img/switch-off.png" style="width: 25%;"> -->
-                <img class="img_den" src="./dist/img/den_off.png" style="width: 25%;">
+                <p style="float: right; position: fixed;right: 0;bottom: 0;"><img class="img_den" src="./dist/img/den_off.png" style="width: 25%;"></p>
               </div>
             </div>
           </div>
@@ -324,7 +324,7 @@
           <span id="giatrinhietdo">24°C</span>
           <span id="vitri">Phường 2, Vĩnh Long</span>
           <p id="trangthaithoitiet">Mưa giông</p> 
-          <img id="iconthoitiet" height="auto" width="10%" src="dist/img/Thoitiet/iconthoitiet_nang.png"/>
+          <img id="iconthoitiet" height="auto" width="10%" src="WEB/dist/img/Thoitiet/iconthoitiet_nang.png"/>
           <p id="nhietdongay">Độ ẩm 20%, Nhiệt độ thấp nhất 27°</p>
         </div>
       </div>  
@@ -388,7 +388,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
+<!-- <script src="dist/js/pages/dashboard.js"></script> -->
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -445,58 +445,72 @@
         if(message.destinationName =="ToNguyenHoangPhuc_Led_out")
         {
           updateData(message.payloadString)
-          // location.reload();
+
         }
         else if(message.destinationName =="ToNguyenHoangPhuc_dht")
         {
-          console.log("onMessageArrived:"+message.payloadString);
+      
           const obj = JSON.parse(message.payloadString); 
-          console.log(obj.temp_value);
+    
           document.getElementById("nhietdo").innerHTML =  obj.nhiet_do;
           document.getElementById("doam").innerHTML =obj.do_am;
         }
  
       }
-      $('#BatDen').click(function(e) {  
-        if(luuTTLed == "0")
-        {
-          const message = new Paho.MQTT.Message("1");
-          message.destinationName = "ToNguyenHoangPhuc_Led_in";
-          client.send(message);
-        }
-        else
-        {
-          const message = new Paho.MQTT.Message("0");
-          message.destinationName = "ToNguyenHoangPhuc_Led_in";
-          console.log("Gui")
-          client.send(message);
-        }
+      //khỏi sài này
+      // $('#BatDen').click(function(e) {  
+        
+      //   if(luuTTLed == "0")
+      //   {
+      //     const message = new Paho.MQTT.Message("1");
+      //     message.destinationName = "ToNguyenHoangPhuc_Led_in";
+      //     client.send(message);
+      //   }
+      //   else
+      //   {
+      //     const message = new Paho.MQTT.Message("0");
+      //     message.destinationName = "ToNguyenHoangPhuc_Led_in";
+      //     console.log("Gui")
+      //     client.send(message);
+      //   }
 
-      });
-      // const dbref= ref(db);
-      // get(child(dbref,"TrangThaiLed")).then((snapshot)=>{
-      //     luuTTLed=snapshot.val()
-      //       if(luuTTLed == "0")
-      //       {
-      //         $('#myImg').attr('src','./dist/img/switch-off.png');
+      // });
+      const dbref= ref(db);
+        get(child(dbref,"TrangThaiLed")).then((snapshot)=>{
+          luuTTLed=snapshot.val()
+            if(luuTTLed == "0")
+            {
+              $('.img_den').attr('src','./dist/img/den_off.png');
       
-      //       }
-      //       else
-      //       {
-      //         $('#myImg').attr('src','./dist/img/switch-on.png');
-      //       }
+            }
+            else
+            {
+              $('.img_den').attr('src','./dist/img/den_on.png');
+            }
              
-      //   });
+        });
 
       var den_off = "./dist/img/den_off.png";
       var den_on = "./dist/img/den_on.png";
       $('.img_den').click(function(){
         var imgsr = $('.img_den').attr('src');
         if(imgsr === den_off){
-            $('.img_den').attr('src', den_on);
+
+          const message = new Paho.MQTT.Message("1");
+          message.destinationName = "ToNguyenHoangPhuc_Led_in";
+          client.send(message);
+          console.log("Bat den");
+
+          $('.img_den').attr('src', den_on);
         }
         else{
-            $('.img_den').attr('src', den_off);
+
+          const message = new Paho.MQTT.Message("0");
+          message.destinationName = "ToNguyenHoangPhuc_Led_in";
+          console.log("Gui, tat den")
+          client.send(message);
+
+          $('.img_den').attr('src', den_off);
         }
     });
 
