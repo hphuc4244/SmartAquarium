@@ -36,13 +36,13 @@ function Get_Thoitiet() {
             document.getElementById('nhietdongay').textContent = "Độ ẩm " + response.main.humidity + "%";
 
             switch (response.weather[0].main){
-
+                    
                 case "Clear": 
                     document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_nang.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
                     break;
                 case "Clouds": 
-                    document.getElementById("iconthoitiet").src = "/WEB/dist/img/Thoitiet/iconthoitiet_may.png";
+                    document.getElementById("iconthoitiet").src = "./img/Thoitiet/iconthoitiet_may.png";
                     document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/may.jpg')")
                     break;
                 case "Rain": 
