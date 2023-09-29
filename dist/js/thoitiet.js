@@ -18,9 +18,6 @@ function Get_Thoitiet() {
     // document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
     document.getElementById('ngayhientai').innerHTML = h+":"+m+":"+s +" - " + day + ", " + date +"."+month+"."+year
     const xhttpr = new XMLHttpRequest();
-    xhttpr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Vinh Long&appid=5a383cdee3d0e7e579889741686fae8f&&units=metric&lang=vi', true);
-
-    xhttpr.send();
 
     xhttpr.onload = ()=> {
         if (xhttpr.status === 200) {
@@ -36,9 +33,9 @@ function Get_Thoitiet() {
             
             if( h >= 18){
                 document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/night.jpg')");
-                document.getElementById("iconthoitiet").src = "dist/img/group_icon/"+ icon_thoitiet +"_night.png";
+                document.getElementById("iconthoitiet").src = "dist/img/group_icon/"+ icon_thoitiet +".png";
             }else{
-                document.getElementById("iconthoitiet").src = "dist/img/group_icon/"+ icon_thoitiet +"_day.png";
+                document.getElementById("iconthoitiet").src = "dist/img/group_icon/"+ icon_thoitiet +".png";
                 
                 switch (response.weather[0].main){
                   
