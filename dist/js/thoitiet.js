@@ -30,8 +30,10 @@ function Get_Thoitiet() {
             document.getElementById('trangthaithoitiet').textContent = response.weather[0].description;
             document.getElementById('nhietdongay').textContent = "Độ ẩm " + response.main.humidity + "%";
             var icon_thoitiet = response.weather[0].icon;
+            console.log(icon_thoitiet);
             
             if( h >= 18){
+                //background
                 document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/night.jpg')");
                 document.getElementById("iconthoitiet").src = "dist/img/group_icon/"+ icon_thoitiet +".png";
             }else{
