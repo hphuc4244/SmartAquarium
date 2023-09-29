@@ -18,7 +18,7 @@ function Get_Thoitiet() {
     // document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
     document.getElementById('ngayhientai').innerHTML = h+":"+m+":"+s +" - " + day + ", " + date +"."+month+"."+year
     const xhttpr = new XMLHttpRequest();
-    xhttpr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Vinh Long&appid=5a383cdee3d0e7e579889741686fae8f&&units=metric', true);
+    xhttpr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Vinh Long&appid=5a383cdee3d0e7e579889741686fae8f&&units=metric&lang=vi', true);
 
     xhttpr.send();
 
@@ -32,27 +32,37 @@ function Get_Thoitiet() {
             document.getElementById('trangthaithoitiet').textContent = response.weather[0].description;
             document.getElementById('trangthaithoitiet').textContent = response.weather[0].description;
             document.getElementById('nhietdongay').textContent = "Độ ẩm " + response.main.humidity + "%";
-
-            switch (response.weather[0].main){
+            var icon_thoitiet = response.weather[0].icon;
+            
+            if( h >= 18){
+                document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/night.jpg')");
+                document.getElementById("iconthoitiet").src = "dist/img/group_icon/"+ icon_thoitiet +"_night.png";
+            }else{
+                document.getElementById("iconthoitiet").src = "dist/img/group_icon/"+ icon_thoitiet +"_day.png";
+                
+                switch (response.weather[0].main){
                   
-                case "Clear": 
-                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_nang.png";
-                    document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
-                    break;
-                case "Clouds": 
-                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_may.png";
-                    document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/may.jpg')")
-                    break;
-                case "Rain": 
-                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_mua.png";
-                    document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/mua.jpg')")
-                    break;
-                // thay doi
-                default: 
-                    document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_nang.png";
-                    document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
-                    break; 
+                    case "Clear": 
+                        // document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_nang.png";
+                        document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
+                        break;
+                    case "Clouds": 
+                        // document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_may.png";
+                        document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/may.jpg')")
+                        break;
+                    case "Rain": 
+                        // document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_mua.png";
+                        document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/mua.jpg')")
+                        break;
+                    // thay doi
+                    default: 
+                        // document.getElementById("iconthoitiet").src = "/SmartAquarium/dist/img/Thoitiet/iconthoitiet_nang.png";
+                        document.getElementById('thoitiet').setAttribute("style", "background-image: url('dist/img/Thoitiet/nang.jpg')")
+                        break; 
+                }
+
             }
+            
 
             // console.log(response.weather[0].main)
         } else {
