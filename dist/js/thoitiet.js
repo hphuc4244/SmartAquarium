@@ -18,12 +18,15 @@ function Get_Thoitiet() {
     // document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
     document.getElementById('ngayhientai').innerHTML = h+":"+m+":"+s +" - " + day + ", " + date +"."+month+"."+year
     const xhttpr = new XMLHttpRequest();
+    xhttpr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?q=Vinh Long&appid=5a383cdee3d0e7e579889741686fae8f&&units=metric&lang=vi', true);
+
+    xhttpr.send();
 
     xhttpr.onload = ()=> {
         if (xhttpr.status === 200) {
             const response = JSON.parse(xhttpr.response);
             
-            // console.log(response);
+            console.log(response);
 
             document.getElementById('giatrinhietdo').textContent = Math.round(response.main.feels_like*10)/10+"°C";
             document.getElementById('trangthaithoitiet').textContent = response.weather[0].description;
