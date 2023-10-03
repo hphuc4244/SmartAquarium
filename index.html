@@ -265,7 +265,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3 id="doam">53<sup style="font-size: 20px">%</sup></h3>
+                <h3 id="doam"><sup style="font-size: 20px"></sup></h3>
                 <p>Độ ẩm</p>
               </div>
               <div class="icon">
@@ -279,7 +279,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3 id="nhietdo">44</h3>
+                <h3 id="nhietdo"></h3>
                 <p>Nhiệt độ</p>
               </div>
               <div class="icon">
@@ -323,7 +323,9 @@
           <img id="iconthoitiet" height="auto" width="10%" src="WEB/dist/img/Thoitiet/iconthoitiet_nang.png"/>
           <p id="nhietdongay">Độ ẩm 20%, Nhiệt độ thấp nhất 27°</p>
         </div>
-      </div>  
+      </div> 
+      <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/1760280/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Bi%E1%BB%83u+%C4%91%E1%BB%93+nhi%E1%BB%87t+%C4%91%E1%BB%99&type=line"></iframe>
+      <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/1760280/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Bi%E1%BB%81u+%C4%91%E1%BB%93+%C4%91%E1%BB%99+%E1%BA%A9m&type=line&yaxismax=100&yaxismin=30"></iframe>
        <!-- test -->
 
       <!-- thời tiết -->
@@ -441,6 +443,7 @@
         }
       }
       function onMessageArrived(message) {
+        console.log(message.destinationName);
         if(message.destinationName =="ToNguyenHoangPhuc_Led_out")
         {
           updateData(message.payloadString)
@@ -450,7 +453,7 @@
         {
       
           const obj = JSON.parse(message.payloadString); 
-    
+          
           document.getElementById("nhietdo").innerHTML =  obj.nhiet_do;
           document.getElementById("doam").innerHTML =obj.do_am;
         }
