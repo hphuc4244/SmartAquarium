@@ -30,7 +30,7 @@
 #vitri{
     font-family: 'Sriracha', cursive;
     font-weight: 400;
-    font-size: 200%;
+    font-size: 220%;
     float: right;
     color: aliceblue;
 }
@@ -39,7 +39,7 @@
     margin-top: 2%;
     font-family: 'Playball', cursive;
     font-weight: 500;
-    font-size: 200%;
+    font-size: 180%;
     color: rgb(255, 255, 255);
     text-shadow: -1px 0 rgba(78, 76, 76, 0.845), 0 1px rgba(78, 76, 76, 0.845),      1px 0 rgba(78, 76, 76, 0.845), 0 -1px rgba(78, 76, 76, 0.845);
 
