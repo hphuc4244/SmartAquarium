@@ -500,14 +500,14 @@
         var imgsr = $('.img_den').attr('src');
         if(imgsr === den_off){
             $('.img_den').attr('src', den_on);
-            const message = new Paho.MQTT.Message("1");
+            const message = new Paho.MQTT.Message("on");
             message.destinationName = "ToNguyenHoangPhuc_Led_in";
             client.send(message);
             console.log("Bat den");
         }
         else{
             $('.img_den').attr('src', den_off);
-            const message = new Paho.MQTT.Message("0");
+            const message = new Paho.MQTT.Message("off");
             message.destinationName = "ToNguyenHoangPhuc_Led_in";
             console.log("Gui, tat den")
             client.send(message);
