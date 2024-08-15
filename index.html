@@ -249,9 +249,9 @@
         <div class="row">
           <div  class="col-lg-3 col-6">
             <!-- small box -->
-            <div  id="bat/tatden"   class="small-box bg-info">
+            <div  id="bat/tatden-caloc"   class="small-box bg-info">
               <div class="inner" >
-                <h3 style="-webkit-user-select: none;user-select: none;">Đèn <img class="img_den" src="dist/img/den_off.png" width="10%"/> </h3>
+                <h3 style="-webkit-user-select: none;user-select: none;">Đèn cá lóc <img class="img_den_caloc" src="dist/img/den_off.png" width="10%"/> </h3>
                 <p  style="color: #17a2b8; -webkit-user-select: none;user-select: none;"> dsd  </p>
               </div>
               <div  class="icon">
@@ -263,15 +263,15 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3 id="doam">53<sup style="font-size: 20px">%</sup></h3>
-                <p>Độ ẩm của cảm biến</p>
+            <div  id="bat/tatden-canho"   class="small-box bg-info" >
+              <div class="inner" style="background-color:rgb(83, 63, 173) ;" >
+                <h3 style="-webkit-user-select: none;user-select: none;">Đèn cá nhỏ <img class="img_den_canho" src="dist/img/den_off.png" width="10%"/> </h3>
+                <p  style="color: rgb(83, 63, 173) ; -webkit-user-select: none;user-select: none;"> dsd  </p>
               </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+              <div  class="icon">
+                <i  style="zoom:0.8;" class="ion-ios-lightbulb"></i>
               </div>
-              <a href="#" class="small-box-footer"></a>
+              <a href="#" class="small-box-footer"> </i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -432,8 +432,8 @@
         useSSL: true});
       function onConnect() {
         console.log("onConnect");
-        client.subscribe("ToNguyenHoangPhuc_Led_out");
-        client.subscribe("ToNguyenHoangPhuc_dht");
+        client.subscribe("ToNguyenHoangPhuc_Led_trangthai_caloc");
+        client.subscribe("ToNguyenHoangPhuc_Led_trangthai_canho");
 
       }
       function onConnectionLost(responseObject) {
@@ -442,103 +442,96 @@
         }
       }
       function onMessageArrived(message) {
-        
-        if(message.destinationName =="ToNguyenHoangPhuc_Led_out")
+        console.log(message.destinationName);
+        if(message.destinationName =="ToNguyenHoangPhuc_Led_trangthai_caloc")
         {
-          updateData(message.payloadString)
+          updateData_caloc(message.payloadString)
 
+        }else if(message.destinationName =="ToNguyenHoangPhuc_Led_trangthai_canho"){
+          updateData_canho(message.payloadString)
         }
-        else if(message.destinationName =="ToNguyenHoangPhuc_dht")
-        {
-      
-          const obj = JSON.parse(message.payloadString); 
-          
-          document.getElementById("nhietdo").innerHTML =  obj.nhiet_do;
-          document.getElementById("doam").innerHTML =obj.do_am;
-        }
+
  
       }
-      //khỏi sài này
-      // $('#BatDen').click(function(e) {  
-        
-      //   if(luuTTLed == "0")
-      //   {
-      //     const message = new Paho.MQTT.Message("on");
-      //     message.destinationName = "ToNguyenHoangPhuc_Led_in";
-      //     client.send(message);
-      //   }
-      //   else
-      //   {
-      //     const message = new Paho.MQTT.Message("off");
-      //     message.destinationName = "ToNguyenHoangPhuc_Led_in";
-      //     console.log("Gui")
-      //     client.send(message);
-      //   }
-
-      // });
       const dbref= ref(db);
         get(child(dbref,"TrangThaiLed")).then((snapshot)=>{
           luuTTLed=snapshot.val()
             if(luuTTLed == "tat")
             {
-              $('.img_den').attr('src','./dist/img/den_off.png');
+              $('.img_den_caloc').attr('src','./dist/img/den_off.png');
       
             }
             else
             {
-              $('.img_den').attr('src','./dist/img/den_on.png');
+              $('.img_den_caloc').attr('src','./dist/img/den_on.png');
             }
              
         });
+        get(child(dbref,"TrangThaiLedCaNho")).then((snapshot)=>{
+          luuTTLed=snapshot.val()
+            if(luuTTLed == "tat")
+            {
+              $('.img_den_canho').attr('src','./dist/img/den_off.png');
+      
+            }
+            else
+            {
+              $('.img_den_canho').attr('src','./dist/img/den_on.png');
+            }
+             
+        });
+        
 
       var den_off = "./dist/img/den_off.png";
       var den_on = "./dist/img/den_on.png";
 
-      var clicked = document.getElementById("bat/tatden")
+      var clicked = document.getElementById("bat/tatden-caloc")
       clicked.onclick = function(){
-        console.log("Clicked");
-        var imgsr = $('.img_den').attr('src');
+       
+        var imgsr = $('.img_den_caloc').attr('src');
         if(imgsr === den_off){
-            $('.img_den').attr('src', den_on);
+            $('.img_den_caloc').attr('src', den_on);
             const message = new Paho.MQTT.Message("on");
-            message.destinationName = "ToNguyenHoangPhuc_Led_in";
+            message.destinationName = "ToNguyenHoangPhuc_Led_caloc";
             client.send(message);
             console.log("Bat den");
         }
         else{
-            $('.img_den').attr('src', den_off);
+            $('.img_den_caloc').attr('src', den_off);
             const message = new Paho.MQTT.Message("off");
-            message.destinationName = "ToNguyenHoangPhuc_Led_in";
+            message.destinationName = "ToNguyenHoangPhuc_Led_caloc";
             console.log("Gui, tat den")
             client.send(message);
         }
     };
-      //
-    //   $('.img_den').click(function(){
-    //     var imgsr = $('.img_den').attr('src');
-    //     if(imgsr === den_off){
+    var clicked = document.getElementById("bat/tatden-canho")
+      clicked.onclick = function(){
+        console.log("Clicked");
+        var imgsr = $('.img_den_canho').attr('src');
+        if(imgsr === den_off){
+            $('.img_den_canho').attr('src', den_on);
+            const message = new Paho.MQTT.Message("on");
+            message.destinationName = "ToNguyenHoangPhuc_Led_canho";
+            client.send(message);
+            console.log("Bat den");
+        }
+        else{
+            $('.img_den_canho').attr('src', den_off);
+            const message = new Paho.MQTT.Message("off");
+            message.destinationName = "ToNguyenHoangPhuc_Led_canho";
+            console.log("Gui, tat den")
+            client.send(message);
+        }
+    };
 
-    //       const message = new Paho.MQTT.Message("1");
-    //       message.destinationName = "ToNguyenHoangPhuc_Led_in";
-    //       client.send(message);
-    //       console.log("Bat den");
-
-    //       $('.img_den').attr('src', den_on);
-    //     }
-    //     else{
-
-    //       const message = new Paho.MQTT.Message("0");
-    //       message.destinationName = "ToNguyenHoangPhuc_Led_in";
-    //       console.log("Gui, tat den")
-    //       client.send(message);
-
-    //       $('.img_den').attr('src', den_off);
-    //     }
-    // });
-
-      function updateData(data){
+      function updateData_caloc(data){
         update(ref(db),{
           TrangThaiLed:data
+        })
+      }
+      function updateData_canho(data){
+        update(ref(db),{
+          TrangThaiLedCaNho:data
         })
       }
   });
