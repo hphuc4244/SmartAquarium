@@ -65,9 +65,10 @@
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
-        <!-- <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a> -->
+        <a class="nav-link" href="#" >
+          <i class="fa-solid fa-house-signal"></i>
+          <i id="trangthaiesp" class="fa-solid fa-house-signal" style="color: red;font-weight: bold;"> Offline</i>
+        </a>
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
@@ -86,7 +87,6 @@
       </li>
 
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
 
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
@@ -180,6 +180,7 @@
               <p>
                 Điều khiển
               </p>
+       
             </a>
           </li>
 
@@ -280,7 +281,7 @@
 
       <!-- Thời tiết -->
 
-      <div id="thoitiet" class="content" style='background-image: url("dist/img/Thoitiet/nang.jpg");'>
+      <div id="thoitiet" class="content" style='background-image: url("dist/img/thoitiet/nang.jpg");'>
         <div id="title_thoitiet" style="padding-left: 5%;width: 100%; background-color: rgba(255, 255, 255, 0.23);border-top-left-radius: 13px; border-top-right-radius: 13px;">
           <h5 style="-webkit-user-select: none;user-select: none;" id="ngayhientai">Thứ Tư, 28.09.2023 </h5>
         </div>
@@ -409,13 +410,18 @@
       function onConnectionLost(responseObject) {
         if (responseObject.errorCode !== 0) {
           console.log("onConnectionLost:"+responseObject.errorMessage);
+          location.reload();
         }
       }
       function onMessageArrived(message) {
         console.log(message.destinationName);
+        
         if(message.destinationName =="ToNguyenHoangPhuc_Led_trangthai_caloc")
         {
-          updateData_caloc(message.payloadString)
+          updateData_caloc(message.payloadString);
+         
+          document.getElementById('trangthaiesp').textContent = "  ESP đang Online";
+          document.getElementById('trangthaiesp').setAttribute("style", "color:rgb(19, 207, 75);font-weight: bold;");
 
         }else if(message.destinationName =="ToNguyenHoangPhuc_Led_trangthai_canho"){
           updateData_canho(message.payloadString)
@@ -426,8 +432,6 @@
         }else if(message.destinationName =="ToNguyenHoangPhuc_trangthai_nguon_2"){
           updateData_Nguon_2(message.payloadString)
         }
-
- 
       }
       const dbref= ref(db);
         get(child(dbref,"TrangThaiLed")).then((snapshot)=>{
