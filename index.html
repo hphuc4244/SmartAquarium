@@ -38,7 +38,7 @@
 
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -140,29 +140,6 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -251,7 +228,7 @@
             <!-- small box -->
             <div  id="bat/tatden-caloc"   class="small-box bg-info">
               <div class="inner" style="background-color:#C5EFE9;">
-                <h4 style="-webkit-user-select: none;user-select: none;color: black">Đèn cá lóc  </h4>
+                <h4 style="-webkit-user-select: none;user-select: none;color: black;font-weight: bold;">Đèn cá lóc  </h4>
                 <img class="img_den_caloc" src="dist/img/den_off.png" width="25%"/>
                 <p  style="color: #17a2b8; -webkit-user-select: none;user-select: none;"> </p>
               </div>
@@ -265,7 +242,7 @@
             <!-- small box -->
             <div  id="bat/tatden-canho"   class="small-box bg-info" >
               <div class="inner" style="background-color:#C5EFE9;"  >
-                <h4 style="-webkit-user-select: none;user-select: none;color: black;">Đèn cá nhỏ </h4>
+                <h4 style="-webkit-user-select: none;user-select: none;color: black;font-weight: bold;">Đèn cá nhỏ </h4>
                 <img class="img_den_canho" src="dist/img/den_off.png" width="25%"/> 
                 <p  style="color: rgb(83, 63, 173) ; -webkit-user-select: none;user-select: none;">  </p>
               </div>
@@ -277,29 +254,30 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div id="bat/tat-nguon-1" class="small-box bg-warning">
-              <div class="inner"  >
-                <h4 style="-webkit-user-select: none;user-select: none;color: black;">Máy bơm</h4>
+            <div id="bat/tat-nguon-1" class="small-box bg-success">
+              <div class="inner" style="background-color:#E8E8E8;" >
+                <h4 style="-webkit-user-select: none;user-select: none;font-weight: bold;color: black">Nguồn 1</h4>
                 <img class="img_nguon_1" src="dist/img/den_off.png" width="25%"/> 
                 <p  style="color: rgb(83, 63, 173) ; -webkit-user-select: none;user-select: none;">  </p>
               </div>
               <div  class="icon">
-                <i  style="zoom:0.8;" class="ion-ios-lightbulb"></i>
+                <i  style="zoom:0.8;" class="fas fa-cog"></i>
               </div>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3 style="-webkit-user-select: none;user-select: none;">65</h3>
-                <p style="-webkit-user-select: none;user-select: none;">Unique Visitors</p>
+            <div id="bat/tat-nguon-2" class="small-box bg-success">
+              <div class="inner"  style="background-color:#E8E8E8;">
+                <h4 style="-webkit-user-select: none;user-select: none;font-weight: bold;color: black">Nguồn 2</h4>
+                <img class="img_nguon_2" src="dist/img/den_off.png" width="25%"/> 
+                <p  style="color: rgb(83, 63, 173) ; -webkit-user-select: none;user-select: none;">  </p>
               </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+              <div  class="icon">
+               
+                <i  style="zoom:0.8;" class="fas fa-cog"></i>
               </div>
-              <a href="#" class="small-box-footer"></a>
             </div>
           </div>
           <!-- ./col -->
@@ -578,7 +556,26 @@
             client.send(message);
         }
     };
-
+    // MQTT nguồn số 2
+    var clicked = document.getElementById("bat/tat-nguon-2")
+      clicked.onclick = function(){
+        console.log("Clicked nguon 2");
+        var imgsr = $('.img_nguon_2').attr('src');
+        if(imgsr === den_off){
+            $('.img_nguon_2').attr('src', den_on);
+            const message = new Paho.MQTT.Message("on");
+            message.destinationName = "ToNguyenHoangPhuc_nguon_B";
+            client.send(message);
+            console.log("Bat den");
+        }
+        else{
+            $('.img_nguon_2').attr('src', den_off);
+            const message = new Paho.MQTT.Message("off");
+            message.destinationName = "ToNguyenHoangPhuc_nguon_B";
+            console.log("Gui, tat den")
+            client.send(message);
+        }
+    };
       function updateData_caloc(data){
         update(ref(db),{
           TrangThaiLed:data
@@ -591,12 +588,12 @@
       }
       function updateData_Nguon_1(data){
         update(ref(db),{
-          TrangThaiLedCaNho:data
+          Nguon_1:data
         })
       }
       function updateData_Nguon_2(data){
         update(ref(db),{
-          TrangThaiLedCaNho:data
+          Nguon_2:data
         })
       }
   });
