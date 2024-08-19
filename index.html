@@ -388,16 +388,16 @@
   $(document).ready(function() {
     // Create a client instance
      var luuTTLed;
-      const client = new Paho.MQTT.Client("broker.hivemq.com", Number(8884), "clientId_abcjdgn");
+      const client = new Paho.MQTT.Client("ab76f209f2aa4b76b0944f485bcbd488.s1.eu.hivemq.cloud", Number(8884), "clientId_abcjdgn");
 
       // set callback handlers
       client.onConnectionLost = onConnectionLost;
       client.onMessageArrived = onMessageArrived;
-
       // connect the client
       client.connect({
         onSuccess:onConnect,	
-     
+        userName : "hphuc4244",
+        password : "hphuc4244",
         useSSL: true});
       function onConnect() {
         console.log("onConnect");
