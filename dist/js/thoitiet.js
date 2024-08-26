@@ -26,14 +26,14 @@ function Get_Thoitiet() {
         if (xhttpr.status === 200) {
             const response = JSON.parse(xhttpr.response);
             
-            console.log(response);
+            // console.log(response);
 
             document.getElementById('giatrinhietdo').textContent = Math.round(response.main.feels_like*10)/10+"°C";
             document.getElementById('trangthaithoitiet').textContent = response.weather[0].description;
             document.getElementById('trangthaithoitiet').textContent = response.weather[0].description;
             document.getElementById('nhietdongay').textContent = "Độ ẩm " + response.main.humidity + "%";
             var icon_thoitiet = response.weather[0].icon;
-            console.log(icon_thoitiet);
+            // console.log(icon_thoitiet);
             
             if( h >= 18){
                 //background
