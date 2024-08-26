@@ -1,7 +1,7 @@
-#include <ESP8266WiFi.h>
+// #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <WiFiClientSecure.h>
-
+#include <WiFi.h>
 //TODO: ESP32 MQTT user config
 const char* ssid = "TCHC"; // Wifi SSID
 const char* password = "12345689@"; // Wifi Password
@@ -60,6 +60,11 @@ void setup() {
   client.subscribe(subTopic_canho);
   client.subscribe(subTopic_nguon_A);
   client.subscribe(subTopic_nguon_B);
+
+  client.publish("ToNguyenHoangPhuc_Led_trangthai_caloc", "tat");
+  client.publish("ToNguyenHoangPhuc_Led_trangthai_canho", "tat");
+  client.publish("ToNguyenHoangPhuc_Led_trangthai_canho", "tat");
+  client.publish("ToNguyenHoangPhuc_trangthai_nguon_1", "tat");
 }
 
 void loop() {
