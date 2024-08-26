@@ -24,11 +24,6 @@ WiFiClientSecure askClient;
 // WiFiClient askClient;
 PubSubClient client(askClient);
 
-const char* trangthaiLed_caloc= "tat";
-const char* trangthaiLed_canho= "tat";
-const char* trangthai_nguon_1= "tat";
-const char* trangthai_nguon_2= "tat";
-
 void setup() {
   Serial.begin(115200);
   Serial.println("*****************************************************");
@@ -72,11 +67,6 @@ void loop() {
     reconnect();
   }
   client.loop();
-  client.publish("ToNguyenHoangPhuc_Led_trangthai_caloc", trangthaiLed_caloc);
-  client.publish("ToNguyenHoangPhuc_Led_trangthai_canho", trangthaiLed_canho);
-  client.publish("ToNguyenHoangPhuc_trangthai_nguon_1", trangthai_nguon_1);
-  client.publish("ToNguyenHoangPhuc_trangthai_nguon_2", trangthai_nguon_2);
-  delay(1500);
 }
 
 
@@ -96,24 +86,24 @@ void callback(char* topic, byte* message, unsigned int length) {
     if(messageTemp == "on"){
       Serial.println("on");
       digitalWrite(LED_pin_caloc, HIGH);
-      trangthaiLed_caloc = "bat";
+      client.publish("ToNguyenHoangPhuc_Led_trangthai_caloc", "bat");
     }
     else if(messageTemp == "off"){
       Serial.println("off");
       digitalWrite(LED_pin_caloc, LOW);
-      trangthaiLed_caloc = "tat";
+      client.publish("ToNguyenHoangPhuc_Led_trangthai_caloc", "tat");
     }
   } else if(String(topic) == subTopic_canho) {
     Serial.print("Changing output to ");
     if(messageTemp == "on"){
       Serial.println("on");
       digitalWrite(LED_pin_canho, HIGH);
-      trangthaiLed_canho = "bat";
+      client.publish("ToNguyenHoangPhuc_Led_trangthai_canho", "bat");
     }
     else if(messageTemp == "off"){
       Serial.println("off");
       digitalWrite(LED_pin_canho, LOW);
-      trangthaiLed_canho = "tat";
+      client.publish("ToNguyenHoangPhuc_Led_trangthai_canho", "tat");
     }
   } else 
   if(String(topic) == subTopic_nguon_A) {
@@ -121,12 +111,12 @@ void callback(char* topic, byte* message, unsigned int length) {
     if(messageTemp == "on"){
       Serial.println("bat den nguon A");
       digitalWrite(LED_pin_nguon_1, HIGH);
-      trangthai_nguon_1 = "bat";
+      client.publish("ToNguyenHoangPhuc_trangthai_nguon_1", "bat");
     }
     else if(messageTemp == "off"){
       Serial.println("off");
       digitalWrite(LED_pin_nguon_1, LOW);
-      trangthai_nguon_1 = "tat";
+      client.publish("ToNguyenHoangPhuc_trangthai_nguon_1", "tat");
     }
   }
   else if(String(topic) == subTopic_nguon_B) {
@@ -134,12 +124,12 @@ void callback(char* topic, byte* message, unsigned int length) {
       if(messageTemp == "on"){
       Serial.println("on");
       digitalWrite(LED_pin_nguon_2, HIGH);
-      trangthai_nguon_2 = "bat";
+      client.publish("ToNguyenHoangPhuc_trangthai_nguon_2", "bat");
     }
     else if(messageTemp == "off"){
       Serial.println("off");
       digitalWrite(LED_pin_nguon_2, LOW);
-      trangthai_nguon_2 = "tat";
+      client.publish("ToNguyenHoangPhuc_trangthai_nguon_2", "tat");
     }
   }
 }
