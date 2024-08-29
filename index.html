@@ -67,7 +67,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#" >
           <i class="fa-solid fa-house-signal"></i>
-          <!-- <i id="trangthaiesp" class="fa-solid fa-house-signal" style="color: red;font-weight: bold;"> Offline</i> -->
+          <i id="trangthaiesp" class="fa-solid fa-house-signal" style="color: red;font-weight: bold;"> Offline</i>
         </a>
         <div class="navbar-search-block">
           <form class="form-inline">
@@ -405,6 +405,7 @@
         client.subscribe("ToNguyenHoangPhuc_Led_trangthai_canho");
         client.subscribe("ToNguyenHoangPhuc_trangthai_nguon_1");
         client.subscribe("ToNguyenHoangPhuc_trangthai_nguon_2");
+        client.subscribe("ToNguyenHoangPhuc_trangthai");
         
       }
       function onConnectionLost(responseObject) {
@@ -431,6 +432,10 @@
 
         }else if(message.destinationName =="ToNguyenHoangPhuc_trangthai_nguon_2"){
           updateData_Nguon_2(message.payloadString)
+        }else if(message.destinationName =="ToNguyenHoangPhuc_trangthai"){
+          console.log(message.payloadString)
+          document.getElementById('trangthaiesp').textContent = "  ESP đang Online";
+          document.getElementById('trangthaiesp').setAttribute("style", "color:rgb(19, 207, 75);font-weight: bold;");
         }
       }
       const dbref= ref(db);
